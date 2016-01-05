@@ -1,5 +1,6 @@
 package com.contribution.bootapi.api.support;
 
+import com.contribution.bootapi.beanvalidator.BeanValidators;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springside.modules.constants.MediaTypes;
 import org.springside.modules.mapper.JsonMapper;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.Map;
 
 @ControllerAdvice(annotations = { RestController.class })
@@ -26,6 +28,21 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private JsonMapper jsonMapper = new JsonMapper();
 
+    /**
+     * 处理JSR311 Validation异常.
+     */
+    @ExceptionHandler(value = { ConstraintViolationException.class })
+    public final ResponseEntity<?> handleException(ConstraintViolationException ex, WebRequest request) {
+        Map<String, String> errors = BeanValidators.extractPropertyAndMessage(ex.getConstraintViolations());
+        errors.put("code", HttpStatus.BAD_REQUEST.toString());
+        String body = jsonMapper.toJson(errors);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(MediaTypes.TEXT_PLAIN_UTF_8));
+//        return handleExceptionInternal(ex, body, headers, HttpStatus.BAD_REQUEST, request);
+//        return handleExceptionInternal(ex, body, headers, HttpStatus.OK, request);
+        return new ResponseEntity<Object>(body, headers, HttpStatus.OK);
+    }
+
 	@ExceptionHandler(value = { ServiceException.class })
 	public final ResponseEntity<ErrorResult> handleServiceException(ServiceException ex, HttpServletRequest request) {
 		// 注入servletRequest，用于出错时打印请求URL与来源地址
@@ -34,7 +51,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType(MediaTypes.JSON_UTF_8));
 		ErrorResult result = new ErrorResult(ex.errorCode.code, ex.getMessage());
-		return new ResponseEntity<ErrorResult>(result, headers, HttpStatus.valueOf(ex.errorCode.httpStatus));
+//		return new ResponseEntity<ErrorResult>(result, headers, HttpStatus.valueOf(ex.errorCode.httpStatus));
+        return new ResponseEntity<ErrorResult>(result, headers, HttpStatus.OK);
 	}
 
 	@ExceptionHandler(value = { Exception.class })
@@ -43,8 +61,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType(MediaTypes.JSON_UTF_8));
-		ErrorResult result = new ErrorResult(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-				HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        ErrorResult result = new ErrorResult(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+//        ErrorResult result = new ErrorResult(HttpStatus.OK.value(),
+//                HttpStatus.OK.getReasonPhrase());
 		return new ResponseEntity<ErrorResult>(result, headers, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

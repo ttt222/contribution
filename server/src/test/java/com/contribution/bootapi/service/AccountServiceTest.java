@@ -6,7 +6,7 @@ public class AccountServiceTest {
 
 	@Test
 	public void hash() throws Exception {
-		System.out.println("hashPassword:" + AccountService.hashPassword("springside"));
+		System.out.println("hashPassword:" + AccountService.hashPassword("abcde888"));
 	}
 
 }

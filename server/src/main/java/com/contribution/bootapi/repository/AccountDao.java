@@ -13,4 +13,6 @@ import com.contribution.bootapi.domain.Account;
 public interface AccountDao extends CrudRepository<Account, Long> {
 
 	Account findByEmail(String email);
+
+    Account findByMobile(String mobile);
 }

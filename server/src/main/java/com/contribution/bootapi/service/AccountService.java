@@ -59,27 +59,35 @@ public class AccountService {
 	}
 
 	@Transactional(readOnly = true)
-	public String login(String email, String password) {
-		Account account = accountDao.findByEmail(email);
-
-		if (account == null) {
-			throw new ServiceException("User not exist", ErrorCode.UNAUTHORIZED);
-		}
-
-		if (!account.hashPassword.equals(hashPassword(password))) {
-			throw new ServiceException("Password wrong", ErrorCode.UNAUTHORIZED);
-		}
-
-		String token = Ids.uuid2();
-		loginUsers.put(token, account);
-		counterService.increment("loginUser");
-		return token;
+	public String login(String mobile, String password) {
+		return login(accountDao.findByMobile(mobile), password);
 	}
 
+    private String login(Account account, String password){
+
+        if (account == null) {
+            throw new ServiceException("User not exist", ErrorCode.UNAUTHORIZED);
+        }
+
+        if (!account.getHashPassword().equals(hashPassword(password))) {
+            throw new ServiceException("Password wrong", ErrorCode.UNAUTHORIZED);
+        }
+
+        String token = Ids.uuid2();
+        loginUsers.put(token, account);
+        counterService.increment("loginUser");
+        return token;
+    }
+
 	public void logout(String token) {
+        if(StringUtils.isBlank(token)){
+            throw new ServiceException("参数错误。", ErrorCode.BAD_REQUEST);
+        }
+
 		Account account = loginUsers.getIfPresent(token);
 		if (account == null) {
 			logger.warn("logout an alreay logout token:" + token);
+            throw new ServiceException("alreay logout", ErrorCode.BAD_REQUEST);
 		} else {
 			loginUsers.invalidate(token);
 			counterService.decrement("loginUser");
@@ -97,19 +105,34 @@ public class AccountService {
 		return account;
 	}
 
-	@Transactional
-	public void register(String email, String name, String password) {
+    @Transactional
+    public void register(Account account){
+        if (account == null) {
+            throw new ServiceException("Invalid parameter", ErrorCode.BAD_REQUEST);
+        }
 
-		if (StringUtils.isBlank(email) || StringUtils.isBlank(password)) {
-			throw new ServiceException("Invalid parameter", ErrorCode.BAD_REQUEST);
-		}
+        if(accountDao.findByMobile(account.getMobile()) != null){
+            throw new ServiceException("该手机已注册过，不能重复注册。", ErrorCode.BAD_REQUEST);
+        }
 
-		Account account = new Account();
-		account.email = email;
-		account.name = name;
-		account.hashPassword = hashPassword(password);
-		accountDao.save(account);
-	}
+        account.setHashPassword(hashPassword(account.getPassword()));
+        accountDao.save(account);
+    }
+
+//    @Deprecated
+//	@Transactional
+//	public void register(String email, String name, String password) {
+//
+//		if (StringUtils.isBlank(email) || StringUtils.isBlank(password)) {
+//			throw new ServiceException("Invalid parameter", ErrorCode.BAD_REQUEST);
+//		}
+//
+//		Account account = new Account();
+//		account.email = email;
+//		account.name = name;
+//		account.hashPassword = hashPassword(password);
+//		accountDao.save(account);
+//	}
 
 	protected static String hashPassword(String password) {
 		return Encodes.encodeBase64(Digests.sha1(password));
