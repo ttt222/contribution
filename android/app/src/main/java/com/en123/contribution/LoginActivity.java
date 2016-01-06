@@ -1,14 +1,14 @@
 package com.en123.contribution;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.en123.contribution.base.BaseActivity;
+import com.en123.contribution.main.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +58,15 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(String result) {
-                        log(result.toString());
+                        log(result);
+                        try {
+                            JSONObject json = new JSONObject(result);
+                            Intent intent = new Intent();
+                            intent.putExtra("token", json.getString("token"));
+                            intent.setClass(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                        }
                     }
 
                     @Override

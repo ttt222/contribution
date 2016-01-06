@@ -29,7 +29,7 @@
 - (IBAction)login:(id)sender {
     NSString *name = self.name_txt.text;
     NSString *password = self.password_txt.text;
-    NSURL *url = [NSURL URLWithString:@"http://192.168.9.99/login"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.9.138:2016/api/accounts/login"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setPostValue:(name) forKey:(@"name")];
     [request setPostValue:(password) forKey:(@"password")];
