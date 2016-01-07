@@ -9,7 +9,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -57,7 +57,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPv-BX-xRu">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="3Op-WY-RLX"/>
                                         </constraints>
@@ -68,7 +68,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pda-M4-gAH">
                                         <rect key="frame" x="180" y="0.0" width="80" height="30"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="Yxn-Xd-fHN"/>
                                         </constraints>
@@ -97,10 +97,45 @@
                     <connections>
                         <outlet property="name_txt" destination="rgB-9n-ORK" id="Bjd-6h-K0Z"/>
                         <outlet property="password_txt" destination="aHl-SU-iMm" id="mb0-bW-d0I"/>
+                        <segue destination="AhE-2C-HET" kind="show" identifier="login" id="I7C-D6-Ftv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-27" y="304"/>
+        </scene>
+        <!--Main Controller-->
+        <scene sceneID="0GT-Pq-jHP">
+            <objects>
+                <viewController storyboardIdentifier="main" id="AhE-2C-HET" customClass="MainController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eDA-cf-v8Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="GQ9-Pf-4Mt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jLx-Qj-cCj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FeW-SO-WMK">
+                                <rect key="frame" x="279" y="290" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FeW-SO-WMK" firstAttribute="centerY" secondItem="jLx-Qj-cCj" secondAttribute="centerY" id="QI2-FB-g1i"/>
+                            <constraint firstItem="FeW-SO-WMK" firstAttribute="centerX" secondItem="jLx-Qj-cCj" secondAttribute="centerX" id="lse-zG-MX3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="FeW-SO-WMK" id="l7a-Ow-Red"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f26-0p-YIj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="714" y="304"/>
         </scene>
     </scenes>
 </document>

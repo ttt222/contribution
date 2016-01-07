@@ -12,7 +12,6 @@
 		C51AAE131C3215FE008C43E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C51AAE121C3215FE008C43E8 /* ViewController.m */; };
 		C51AAE161C3215FE008C43E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51AAE141C3215FE008C43E8 /* Main.storyboard */; };
 		C51AAE181C3215FE008C43E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51AAE171C3215FE008C43E8 /* Assets.xcassets */; };
-		C51AAE1B1C3215FE008C43E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C51AAE191C3215FE008C43E8 /* LaunchScreen.storyboard */; };
 		C54B33BF1C33B43E00A19DFD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54B33BE1C33B43E00A19DFD /* SystemConfiguration.framework */; };
 		C54B33C11C33B45700A19DFD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54B33C01C33B45700A19DFD /* MobileCoreServices.framework */; };
 		C54B33C31C33B47F00A19DFD /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C54B33C21C33B47F00A19DFD /* libz.1.2.5.tbd */; };
@@ -25,6 +24,8 @@
 		C54B33E21C33B76800A19DFD /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C54B33D81C33B76800A19DFD /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C54B33E31C33B76800A19DFD /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C54B33DA1C33B76800A19DFD /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C54B33E61C33BA3F00A19DFD /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C54B33E51C33BA3F00A19DFD /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C5C3BCCA1C3E1168004BCD6B /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C3BCC91C3E1168004BCD6B /* JsonUtil.m */; };
+		C5C3BCCF1C3E2D87004BCD6B /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C3BCCE1C3E2D87004BCD6B /* MainController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +37,6 @@
 		C51AAE121C3215FE008C43E8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C51AAE151C3215FE008C43E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C51AAE171C3215FE008C43E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C51AAE1A1C3215FE008C43E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C51AAE1C1C3215FE008C43E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C54B33BE1C33B43E00A19DFD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C54B33C01C33B45700A19DFD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -63,6 +63,10 @@
 		C54B33DB1C33B76800A19DFD /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		C54B33E41C33BA3F00A19DFD /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C54B33E51C33BA3F00A19DFD /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C5C3BCC81C3DFCAC004BCD6B /* JsonUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JsonUtil.h; sourceTree = "<group>"; };
+		C5C3BCC91C3E1168004BCD6B /* JsonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonUtil.m; sourceTree = "<group>"; };
+		C5C3BCCD1C3E2D15004BCD6B /* MainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		C5C3BCCE1C3E2D87004BCD6B /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,15 +103,17 @@
 		C51AAE0A1C3215FE008C43E8 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				C5C3BCC71C3DFC8F004BCD6B /* utils */,
 				C51AAE0E1C3215FE008C43E8 /* AppDelegate.h */,
 				C51AAE0F1C3215FE008C43E8 /* AppDelegate.m */,
 				C51AAE111C3215FE008C43E8 /* ViewController.h */,
 				C51AAE121C3215FE008C43E8 /* ViewController.m */,
 				C51AAE141C3215FE008C43E8 /* Main.storyboard */,
 				C51AAE171C3215FE008C43E8 /* Assets.xcassets */,
-				C51AAE191C3215FE008C43E8 /* LaunchScreen.storyboard */,
 				C51AAE1C1C3215FE008C43E8 /* Info.plist */,
 				C51AAE0B1C3215FE008C43E8 /* Supporting Files */,
+				C5C3BCCD1C3E2D15004BCD6B /* MainController.h */,
+				C5C3BCCE1C3E2D87004BCD6B /* MainController.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -169,6 +175,15 @@
 			path = third/asi;
 			sourceTree = "<group>";
 		};
+		C5C3BCC71C3DFC8F004BCD6B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5C3BCC81C3DFCAC004BCD6B /* JsonUtil.h */,
+				C5C3BCC91C3E1168004BCD6B /* JsonUtil.m */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,7 +241,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C51AAE1B1C3215FE008C43E8 /* LaunchScreen.storyboard in Resources */,
 				C51AAE181C3215FE008C43E8 /* Assets.xcassets in Resources */,
 				C51AAE161C3215FE008C43E8 /* Main.storyboard in Resources */,
 			);
@@ -243,6 +257,7 @@
 				C51AAE131C3215FE008C43E8 /* ViewController.m in Sources */,
 				C54B33E11C33B76800A19DFD /* ASIHTTPRequest.m in Sources */,
 				C54B33DC1C33B76800A19DFD /* ASIAuthenticationDialog.m in Sources */,
+				C5C3BCCA1C3E1168004BCD6B /* JsonUtil.m in Sources */,
 				C54B33E01C33B76800A19DFD /* ASIFormDataRequest.m in Sources */,
 				C51AAE101C3215FE008C43E8 /* AppDelegate.m in Sources */,
 				C54B33E21C33B76800A19DFD /* ASIInputStream.m in Sources */,
@@ -250,6 +265,7 @@
 				C54B33E31C33B76800A19DFD /* ASINetworkQueue.m in Sources */,
 				C54B33DE1C33B76800A19DFD /* ASIDataDecompressor.m in Sources */,
 				C54B33E61C33BA3F00A19DFD /* Reachability.m in Sources */,
+				C5C3BCCF1C3E2D87004BCD6B /* MainController.m in Sources */,
 				C54B33DF1C33B76800A19DFD /* ASIDownloadCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,14 +279,6 @@
 				C51AAE151C3215FE008C43E8 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C51AAE191C3215FE008C43E8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C51AAE1A1C3215FE008C43E8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

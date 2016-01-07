@@ -9,8 +9,12 @@
 #import "ViewController.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
+#import "JsonUtil.h"
+#import "MainController.h"
 
 @interface ViewController ()
+
+@property NSString* _token;
 
 @end
 
@@ -31,8 +35,15 @@
     NSString *password = self.password_txt.text;
     NSURL *url = [NSURL URLWithString:@"http://192.168.9.138:2016/api/accounts/login"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request setPostValue:(name) forKey:(@"name")];
-    [request setPostValue:(password) forKey:(@"password")];
+    NSDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    [dictionary setValue:name forKey:@"mobile"];
+    [dictionary setValue:password forKey:@"password"];
+    //[request setPostValue:(name) forKey:(@"mobile")];
+    //[request setPostValue:(password) forKey:(@"password")];
+    NSString *data = [JsonUtil DictionaryToJsonString:dictionary];
+    NSLog(@"%@", data);
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request setPostBody:[JsonUtil DictionaryToMutableData:dictionary]];
     [request setDelegate:self];
     [request startAsynchronous];
 }
@@ -40,7 +51,7 @@
 - (IBAction)reg:(id)sender {
     NSString *name = self.name_txt.text;
     NSString *password = self.password_txt.text;
-    NSURL *url = [NSURL URLWithString:@"http://192.168.9.99/reg"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.9.138:2016/api/accounts/register"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setPostValue:(name) forKey:(@"name")];
     [request setPostValue:(password) forKey:(@"password")];
@@ -48,44 +59,51 @@
     [request startAsynchronous];
 }
 
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    if ([[request.url absoluteString] isEqualToString: @"http://192.168.9.99/login"]) {
+- (void)requestFinished:(ASIHTTPRequest *)request {
+    if ([[request.url absoluteString] isEqualToString: @"http://192.168.9.138:2016/api/accounts/login"]) {
         NSLog(@"login response");
-    } else if ([[request.url absoluteString] isEqualToString: @"http://192.168.9.99/reg"]) {
+    } else if ([[request.url absoluteString] isEqualToString: @"http://192.168.9.138:2016/api/accounts/register"]) {
         NSLog(@"reg response");
     }
     // Use when fetching text data
     NSString *responseString = [request responseString];
-    
-    // Use when fetching binary data
-    //NSData *responseData = [request responseData];
-    NSLog(@"%@", responseString);
-    
-    
-    
-    NSData *data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *error = nil;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-    
-    if (error != NULL) {
-        NSLog(@"error:%@", error.description);
-    } else if (json) {
-        NSLog(@"login status = %@", [json valueForKey:@"status"]);
+    NSString *msg = [request responseStatusMessage];
+    int code = [request responseStatusCode];
+    NSLog(@"%i,%@,%@", code, responseString, msg);
+    if (code == 200) {
+        NSDictionary* result = [JsonUtil JsonStringToDictionary:responseString];
+        if (result) {
+            self._token = [result valueForKey:@"token"];
+            //[self alert:token];
+            [self performSegueWithIdentifier:@"login" sender:self];
+        }
+    } else {
+        NSDictionary* result = [JsonUtil JsonStringToDictionary:responseString];
+        if (result)
+            [self alert:[result valueForKey:@"message"]];
     }
-    //id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    //if ([jsonObject isKindOfClass:[NSDictionary class]]){
-    //    NSDictionary *result = (NSDictionary *)jsonObject;
-    //    NSLog(@"Dersialized JSON Dictionary = %@", [result valueForKey:@"status"]);
-    //} else if ([jsonObject isKindOfClass:[NSArray class]]){
-    //    NSArray *nsArray = (NSArray *)jsonObject;
-    //}
 }
 
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
+- (void)requestFailed:(ASIHTTPRequest *)request {
     NSError *error = [request error];
-    NSLog(@"error%ld", error.code);
+    NSLog(@"error%i", error.code);
+}
+
+- (void)alert:(NSString *) msg {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSString* name = segue.identifier;
+    if ([name isEqualToString:@"login"]) {
+        UIViewController* page = segue.destinationViewController;
+        if ([page respondsToSelector:@selector(setToken:)]) {
+            [page setValue:self._token forKey:@"token"];
+        }
+    }
 }
 
 @end
